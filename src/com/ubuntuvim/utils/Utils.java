@@ -1,4 +1,4 @@
-package com.ubuntuvim.util;
+package com.ubuntuvim.utils;
 
 public class Utils {
 	
