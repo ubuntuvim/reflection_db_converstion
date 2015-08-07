@@ -51,11 +51,6 @@ public class CoreDao<T> {
 	 * @param sql 查询的sql
 	 * @param obj 查询的sql参数
 	 * @return 匹配的数据list
-	 * @throws SQLException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
 	 */
 	public List<T> findBySql(String sql, Object[] params) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		List<T> list = new ArrayList<>();
@@ -105,7 +100,6 @@ public class CoreDao<T> {
 	 * @param sql 更新的sql
 	 * @param params 参数
 	 * @return true-更新、删除成功；false-更新、删除失败
-	 * @throws SQLException
 	 */
 	public boolean updateBySql(String sql, Object[] params) throws SQLException {
 		// 表示当用户执行添加删除和修改的时候所影响数据库的行数
@@ -125,7 +119,9 @@ public class CoreDao<T> {
 		log.info("执行SQL >>> " + sql);
         //  执行更新
         result = pstmt.executeUpdate();
-		//  执行完成，关闭数据库链接
+        //  提交事务，持久化到数据库
+        connection.commit();
+        //  执行完成，关闭数据库链接
 		DBConnUtils.closeConn();
         
         return result > 0;
@@ -134,20 +130,12 @@ public class CoreDao<T> {
 	/**
 	 * 使用反射机制获取泛型参数的属性，组装成model的getter/setter方法。 通过反射调用形成model的对象数组返回，不需要一个个设置值
 	 * 
-	 * @param sql 查询的sql
-	 * @param obj 查询的sql参数
-	 * @return 匹配的数据list
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws SQLException 
-	 * @throws Exception 
+	 * @param entity 插入的实体对象
+	 * @param tableName 插入的表名称
+	 * @return true-插入成功；false-插入失败
 	 */
 	public boolean insertObj(T entity, String tableName) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
 
-		connection = DBConnUtils.getConntion();
 		String fieldStr = "";
 		String qm = "";
 		StringBuffer sb = new StringBuffer();
@@ -178,11 +166,7 @@ public class CoreDao<T> {
 		qm = Utils.removeLastChar(qm, ",");
 		// 拼接字符串得到执行的sql语句
 		sb.append(fieldStr).append(" ) values( ").append(qm).append(" )");
-		boolean result = this.updateBySql(sb.toString(), params);
-		//  执行完成，关闭数据库链接
-		DBConnUtils.closeConn();
-		
-		return result;
+		return this.updateBySql(sb.toString(), params);
 	}
     
 }
