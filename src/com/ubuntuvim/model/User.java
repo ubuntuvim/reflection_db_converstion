@@ -1,14 +1,16 @@
 package com.ubuntuvim.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 public class User {
 	
 	private int id;
 	private String username;
-	private Date brith;
-	private Date dateil_time;
+	private Date birth;
+	private Date detail_time;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -21,22 +23,21 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Date getBrith() {
-		return brith;
+	public Date getBirth() {
+		return birth;
 	}
-	public void setBrith(Date brith) {
-		this.brith = brith;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
-	public Date getDateil_time() {
-		return dateil_time;
+	public Date getDetail_time() {
+		return detail_time;
 	}
-	public void setDateil_time(Date dateil_time) {
-		this.dateil_time = dateil_time;
+	public void setDetail_time(Date detail_time) {
+		this.detail_time = detail_time;
 	}
-	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", brith=" + brith
-				+ ", dateil_time=" + dateil_time + "]";
+		return "User [id=" + id + ", username=" + username + ", birth=" + birth
+				+ ", detail_time=" + detail_time + "]";
 	}
 }

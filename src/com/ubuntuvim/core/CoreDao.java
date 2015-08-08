@@ -8,7 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -52,7 +55,7 @@ public class CoreDao<T> {
 	 * @param obj 查询的sql参数
 	 * @return 匹配的数据list
 	 */
-	public List<T> findBySql(String sql, Object[] params) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	public List<T> findBySql(String sql, Object[] params) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException, ParseException {
 		List<T> list = new ArrayList<>();
 		connection = DBConnUtils.getConntion();
 
@@ -77,9 +80,7 @@ public class CoreDao<T> {
 			for (int i = 0; i < colsLen; i++) {
 				String colsName = metaData.getColumnName(i + 1);
 				Object colsValue = resultSet.getObject(colsName);
-				if (null == colsValue) {
-					colsValue = "";
-				}
+				
 				// 返回一个 Field 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明字段。
 				Field field = clazz.getDeclaredField(colsName);
 				field.setAccessible(true);// 打开javabean的访问private权限

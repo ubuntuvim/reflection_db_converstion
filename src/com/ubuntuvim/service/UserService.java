@@ -2,6 +2,7 @@ package com.ubuntuvim.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import com.ubuntuvim.core.CoreService;
@@ -26,7 +27,7 @@ public class UserService extends CoreService<User> {
 		try {
 			return userDao.findBySql(sql, params);
 		} catch (InstantiationException | IllegalAccessException
-				| NoSuchFieldException | SecurityException | SQLException e) {
+				| NoSuchFieldException | SecurityException | SQLException | ParseException e) {
 			//  处理异常信息，
 			log.error("执行《 "+sql+" 》出错！");
 			log.error(e.toString());

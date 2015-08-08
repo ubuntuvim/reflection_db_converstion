@@ -26,24 +26,24 @@ public class UserServiceTest {
 
 	@Test
 	public void testInsertObj() {
-		User u = new User();
-		u.setBrith(new Date(System.currentTimeMillis()));
-		u.setDateil_time(new Date(System.currentTimeMillis()));
-		u.setUsername("ubuntuvim");
-		System.out.println(" ==== " + userService.insertObj(u, "test_reflection"));;
+//		User u = new User();
+//		u.setBrith(new Date(System.currentTimeMillis()));
+//		u.setDateil_time(new Date(System.currentTimeMillis()));
+//		u.setUsername("ubuntuvim");
+//		System.out.println(" ==== " + userService.insertObj(u, "test_reflection"));;
 	}
 
 	@Test
 	public void testTestFindHasParams() {
-		String sql = "select * from test_reflection where username = ? and id = ?";
-		Object[] params = { "username", 1 };
-		List<User> users = userService.findBySql(sql, params);
-		for (User u : users) {
-			System.out.println("id = " + u.getId() 
-					+ ", username = " + u.getUsername() 
-					+ ", brith = " + u.getBrith() 
-					+ ", dateil time = " + u.getDateil_time());
-		}
+//		String sql = "select * from test_reflection where username = ? and id = ?";
+//		Object[] params = { "username", 1 };
+//		List<User> users = userService.findBySql(sql, params);
+//		for (User u : users) {
+//			System.out.println("id = " + u.getId() 
+//					+ ", username = " + u.getUsername() 
+//					+ ", brith = " + u.getBrith() 
+//					+ ", dateil time = " + u.getDateil_time());
+//		}
 	}
 
 }
